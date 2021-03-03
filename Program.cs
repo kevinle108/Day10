@@ -7,8 +7,20 @@ namespace Day10
     {
         static void Main(string[] args)
         {
-            var ls = new List<string> { "A", "B", "C" };
-            Permutations(ls);
+            //var ls = new List<string> { "A", "B", "C" };
+            //Permutations(ls);
+            //Console.WriteLine();
+            //Console.WriteLine(Factorial(1));
+            //Console.WriteLine(Factorial(0));
+            //Console.WriteLine(Factorial(-1));
+            //Console.WriteLine(Factorial(9));
+
+            Console.WriteLine();
+
+            Console.WriteLine(IsSubsequence("asd", "atysfgfhvd"));
+
+
+
 
         }
 
@@ -16,36 +28,41 @@ namespace Day10
 
         static int Factorial(int n)
         {
-            if (n < 0) return -1;
-            if (n == 1) return 1;
-            return n * Factorial(n - 1);
+            if (n == 1 || n == 0) return 1;
+            else if (n < 0) return -1;
+            else return n * Factorial(n - 1);
         }
 
         // Recursive problem #2
 
         static int SumOfDigits(int n)
         {
-            if (n < 0) return -1;
-            if (n < 10) return n;
-            return (n % 10) + SumOfDigits(n / 10);
+            if (n <= 0) return 0;
+            else return n + SumOfDigits(n - 1);
         }
 
         // Recursive problem #3
 
         static void ReverseString(string s)
         {
-            if (s.Length == 0) return;
-            Console.Write(s[^1]);
-            ReverseString(s[0..^1]);
-            
-            
+            if (s.Length == 1) Console.Write(s);
+            else
+            {
+                Console.Write(s[^1]);
+                ReverseString(s[..^1]);
+            }
         }
 
         // Recursive problem #4
 
         static bool IsPalindrome(string s)
         {
-            return false;
+            if (s.Length <= 1) return true;
+            else
+            {
+                if (s[0] != s[^1]) return false;
+                return IsPalindrome(s[1..^1]);
+            }
         }
 
         // Recursive problem #5 – Skip for now
@@ -57,7 +74,15 @@ namespace Day10
 
         static bool IsSubsequence(string s1, string s2)
         {
-            return false;
+            if (s1.Length == 0 || s2.Length == 0) return false;
+            if (s2.Contains(s1)) return true;
+            else
+            {
+                int index = s2.IndexOf(s2[1]);
+                if (index == -1) return false;
+                return IsSubsequence(s1[1..], s2[index..]);
+            }
+            
         }
 
         // Recursive problem #7
